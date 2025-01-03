@@ -3,4 +3,5 @@ local hands-on projects made on learning curve.
 
 list 
 
-> todo list ( obviously )
+1. todo list ( obviously )
+2. weather app
