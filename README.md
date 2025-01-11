@@ -5,4 +5,5 @@ list
 
 1. todo list ( obviously )
 2. weather app
-3. brickbybrick : habit tracking app ( started the work ) 
+3. brickbybrick : habit tracking app ( started the work )
+4. streak 
