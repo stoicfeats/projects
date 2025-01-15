@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const taskRoutes = require('./routes/taskRoutes');
 
 dotenv.config();
 const app = express();
@@ -9,11 +10,13 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use("api/tasks", taskRoutes);
+
 
 // Routes
-app.get("/", (req, res) => {
-    res.send("Server is running");
-});
+// app.get("/", (req, res) => {
+//     res.send("Server is running");
+// });
 
 // Connect to MongoDB
 mongoose
