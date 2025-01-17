@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get All Habits
+// Get All Habits when all request is made
 router.get('/', async (req, res) => {
   try {
     const habits = await Habit.find();
