@@ -7,15 +7,17 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5005;
-const habitRoutes = require('./routes/habits');
-app.use('/api/habits', habitRoutes);
+
 
 // Middlewares
 app.use(cors());
 app.use(express.json());    
 
-// Connect to MongoDB
+// Routes
+const habitRoutes = require('./routes/habits');
+app.use('/api/habits', habitRoutes);
 
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
@@ -23,7 +25,7 @@ mongoose
 
 // Placeholder Route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Habit Tracker Backend!');
+  res.send('Welcome to the Habit Tracker Backend! We are live now');
 });
 
 // Start Server

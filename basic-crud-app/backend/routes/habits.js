@@ -4,12 +4,13 @@ const Habit = require('../models/Habit');
 
 // Create a Habit
 router.post('/', async (req, res) => {
+  console.log(req.body);
   try {
     const newHabit = new Habit(req.body);
     await newHabit.save();
     res.status(201).json(newHabit);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
