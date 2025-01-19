@@ -1,24 +1,27 @@
 import axios from 'axios';
+
 const API_URL = 'http://localhost:5005/api/habits';
 
 // Get all habits
 export const getHabits = async () => {
-  try {
-    const response = await axios.get(API_URL);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+  const response = await axios.get(API_URL);
+  return response.data;
 };
 
-// Create a habit
-
+// Create a new habit
 export const createHabit = async (habit) => {
-  try {
-    const response = await axios.post(API_URL, habit);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-}
+  const response = await axios.post(API_URL, habit);
+  return response.data;
+};
 
+// Update a habit
+export const updateHabit = async (id, updatedHabit) => {
+  const response = await axios.put(`${API_URL}/${id}`, updatedHabit);
+  return response.data;
+};
+
+// Delete a habit
+export const deleteHabit = async (id) => {
+  const response = await axios.delete(`${API_URL}/${id}`);
+  return response.data;
+};
