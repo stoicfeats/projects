@@ -15,7 +15,8 @@ const HabitTracker = () => {
 
   useEffect(() => { 
     // useEffect is a React hook that runs after the component renders.
-    fetchHabits(); 
+    fetchHabits();  // new funcitons
+    
     // Calls the `fetchHabits` function to load habits from the backend when the component mounts.
   }, []); 
   // The empty array as the second argument ensures this effect runs only once, similar to componentDidMount in class components.
