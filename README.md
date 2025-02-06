@@ -8,3 +8,4 @@ list
 3. brickbybrick : habit tracking app ( started the work )
 4. streak tracking app
 5. workout tracker
+6. gym weight tracker
