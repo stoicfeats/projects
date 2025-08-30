@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Twitter Auto Agent{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1da1f2;
+            --secondary-color: #14171a;
+            --success-color: #1da1f2;
+            --danger-color: #e1306c;
+            --warning-color: #ffad1f;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-twitter {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-twitter:hover {
+            background-color: #1991db;
+            border-color: #1991db;
+            color: white;
+        }
+        
+        .tweet-content {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .priority-badge {
+            font-size: 0.8em;
+        }
+        
+        .priority-1 { background-color: #6c757d; }
+        .priority-2 { background-color: var(--warning-color); }
+        .priority-3 { background-color: var(--danger-color); }
+        
+        .screenshot-thumbnail {
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary-color), #1991db);
+            color: white;
+        }
+        
+        .connection-status {
+            font-size: 0.9em;
+        }
+        
+        .connection-success {
+            color: #28a745;
+        }
+        
+        .connection-error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+                <i class="fab fa-twitter"></i> Twitter Auto Agent
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('thoughts') }}">
+                            <i class="fas fa-lightbulb"></i> Thoughts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_thought') }}">
+                            <i class="fas fa-plus"></i> Add Thought
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('gallery') }}">
+                            <i class="fas fa-images"></i> Gallery
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text connection-status">
+                            {% if twitter_connected %}
+                                <i class="fas fa-check-circle connection-success"></i> Connected
+                            {% else %}
+                                <i class="fas fa-times-circle connection-error"></i> Not Connected
+                            {% endif %}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-5 py-4 border-top">
+        <div class="container text-center text-muted">
+            <small>
+                <i class="fab fa-twitter"></i> Twitter Auto Agent - 
+                Automate your Twitter presence with AI assistance
+            </small>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Auto-refresh connection status
+        function checkConnection() {
+            fetch('/api/test-connection')
+                .then(response => response.json())
+                .then(data => {
+                    const statusElement = document.querySelector('.connection-status');
+                    if (data.connected) {
+                        statusElement.innerHTML = '<i class="fas fa-check-circle connection-success"></i> Connected';
+                    } else {
+                        statusElement.innerHTML = '<i class="fas fa-times-circle connection-error"></i> Not Connected';
+                    }
+                })
+                .catch(error => console.error('Error checking connection:', error));
+        }
+        
+        // Check connection every 30 seconds
+        setInterval(checkConnection, 30000);
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
