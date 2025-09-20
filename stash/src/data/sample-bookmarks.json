@@ -1,0 +1,83 @@
+[
+  {
+    "id_str": "1234567890123456789",
+    "text": "Just shipped a new feature! The dark mode toggle is now live 🌙 The response has been incredible - users love the smooth transitions and the ability to switch themes seamlessly.",
+    "user": {
+      "name": "John Developer",
+      "screen_name": "johndeveloper"
+    },
+    "created_at": "2024-01-15T10:30:00.000Z",
+    "favorite_count": 42,
+    "retweet_count": 12,
+    "entities": {
+      "media": [
+        {
+          "media_url_https": "https://picsum.photos/800/600?random=1",
+          "type": "photo"
+        }
+      ]
+    }
+  },
+  {
+    "id_str": "1234567890123456790",
+    "text": "Building in public is one of the best ways to grow your audience. Share your journey, the ups and downs, and people will connect with your story. Here's what I learned after 6 months of building in public:",
+    "user": {
+      "name": "Sarah Builder",
+      "screen_name": "sarahbuilder"
+    },
+    "created_at": "2024-01-14T16:45:00.000Z",
+    "favorite_count": 128,
+    "retweet_count": 34,
+    "entities": {}
+  },
+  {
+    "id_str": "1234567890123456791",
+    "text": "New blog post: 'How I built a Twitter bookmark manager in React' 📖 The tutorial covers everything from data parsing to responsive design. Link in bio!",
+    "user": {
+      "name": "Alex Coder",
+      "screen_name": "alexcoder"
+    },
+    "created_at": "2024-01-13T09:15:00.000Z",
+    "favorite_count": 89,
+    "retweet_count": 23,
+    "entities": {
+      "media": [
+        {
+          "media_url_https": "https://picsum.photos/800/600?random=2",
+          "type": "photo"
+        }
+      ]
+    }
+  },
+  {
+    "id_str": "1234567890123456792",
+    "text": "The future of web development is here! 🚀 Just tried out the new React Server Components and I'm blown away by the performance improvements. The streaming capabilities are game-changing.",
+    "user": {
+      "name": "Tech Enthusiast",
+      "screen_name": "techenthusiast"
+    },
+    "created_at": "2024-01-12T14:20:00.000Z",
+    "favorite_count": 156,
+    "retweet_count": 45,
+    "entities": {
+      "media": [
+        {
+          "media_url_https": "https://picsum.photos/800/600?random=3",
+          "type": "photo"
+        }
+      ]
+    }
+  },
+  {
+    "id_str": "1234567890123456793",
+    "text": "Pro tip: Always test your code in production-like environments. The difference between localhost and production can be huge, especially with performance optimizations.",
+    "user": {
+      "name": "DevOps Expert",
+      "screen_name": "devopsexpert"
+    },
+    "created_at": "2024-01-11T11:30:00.000Z",
+    "favorite_count": 67,
+    "retweet_count": 18,
+    "entities": {}
+  }
+]
