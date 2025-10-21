@@ -1,0 +1,607 @@
+{
+  "name": "Telegram Task Manager",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "telegram-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.callback_query?.data || $json.message?.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "switch-start",
+      "name": "Check for /start",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message?.chat?.id || $json.callback_query?.from?.id }}",
+        "text": "Welcome to Task Manager!\nChoose an option below:",
+        "additionalFields": {
+          "replyMarkup": {
+            "inlineKeyboard": [
+              [
+                {
+                  "text": "➕ Add Task",
+                  "callbackData": "add_task"
+                },
+                {
+                  "text": "📋 View Tasks",
+                  "callbackData": "view_tasks"
+                }
+              ]
+            ]
+          }
+        }
+      },
+      "id": "send-main-menu",
+      "name": "Send Main Menu",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        680,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.callback_query?.data }}",
+              "rightValue": "add_task",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "switch-add-task",
+      "name": "Check for add_task",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query?.from?.id }}",
+        "text": "Please send your task title:",
+        "additionalFields": {}
+      },
+      "id": "ask-task-title",
+      "name": "Ask for Task Title",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "telegram-trigger-task",
+      "name": "Wait for Task Title",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://YOUR_PROJECT_URL.supabase.co/rest/v1/tasks",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_ANON_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_ANON_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "user_id",
+              "value": "={{ $json.message.chat.id }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.message.text }}"
+            },
+            {
+              "name": "status",
+              "value": "pending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "create-task",
+      "name": "Create Task in Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1560,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "✅ Task added successfully!",
+        "additionalFields": {}
+      },
+      "id": "confirm-task-added",
+      "name": "Confirm Task Added",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.callback_query?.data }}",
+              "rightValue": "view_tasks",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "switch-view-tasks",
+      "name": "Check for view_tasks",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://YOUR_PROJECT_URL.supabase.co/rest/v1/tasks?user_id=eq.{{ $json.callback_query.from.id }}&select=*",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_ANON_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_ANON_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fetch-tasks",
+      "name": "Fetch User Tasks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1340,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Process tasks and create inline keyboard\nconst tasks = $input.all();\n\nif (tasks.length === 0 || !tasks[0].json || tasks[0].json.length === 0) {\n  return [{\n    json: {\n      text: \"No tasks yet! Use the menu to add your first task.\",\n      reply_markup: {\n        inline_keyboard: [\n          [\n            {\n              text: \"➕ Add Task\",\n              callback_data: \"add_task\"\n            }\n          ]\n        ]\n      }\n    }\n  }];\n}\n\nconst taskList = tasks[0].json;\nlet text = \"Your Tasks:\\n\\n\";\nconst buttons = [];\n\n// Group tasks into rows of 2\nfor (let i = 0; i < taskList.length; i += 2) {\n  const row = [];\n  \n  // First task in row\n  if (taskList[i]) {\n    const task = taskList[i];\n    text += `${i + 1}. ${task.title} (${task.status})\\n`;\n    row.push({\n      text: `✅ ${task.title.substring(0, 20)}${task.title.length > 20 ? '...' : ''}`,\n      callback_data: `complete_${task.id}`\n    });\n  }\n  \n  // Second task in row (if exists)\n  if (taskList[i + 1]) {\n    const task = taskList[i + 1];\n    text += `${i + 2}. ${task.title} (${task.status})\\n`;\n    row.push({\n      text: `✅ ${task.title.substring(0, 20)}${task.title.length > 20 ? '...' : ''}`,\n      callback_data: `complete_${task.id}`\n    });\n  }\n  \n  buttons.push(row);\n}\n\n// Add menu button at the end\nbuttons.push([\n  {\n    text: \"➕ Add Task\",\n    callback_data: \"add_task\"\n  }\n]);\n\nreturn [{\n  json: {\n    text: text,\n    reply_markup: {\n      inline_keyboard: buttons\n    }\n  }\n}];"
+      },
+      "id": "format-tasks",
+      "name": "Format Tasks List",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.from.id }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "replyMarkup": "={{ $json.reply_markup }}"
+        }
+      },
+      "id": "send-tasks-list",
+      "name": "Send Tasks List",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        400
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-1",
+              "leftValue": "={{ $json.callback_query?.data }}",
+              "rightValue": "complete_",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "switch-complete-task",
+      "name": "Check for complete_",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Extract task ID from callback data\nconst callbackData = $json.callback_query.data;\nconst taskId = callbackData.split('_')[1];\n\nreturn [{\n  json: {\n    id: taskId,\n    chat_id: $json.callback_query.from.id\n  }\n}];"
+      },
+      "id": "extract-task-id",
+      "name": "Extract Task ID",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://YOUR_PROJECT_URL.supabase.co/rest/v1/tasks?id=eq.{{ $json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_ANON_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_ANON_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "status",
+              "value": "done"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "mark-task-complete",
+      "name": "Mark Task Complete",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1560,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "🎉 Task marked as completed!",
+        "additionalFields": {}
+      },
+      "id": "confirm-completion",
+      "name": "Confirm Completion",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        600
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credentials",
+          "name": "Telegram Bot Token"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check for /start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for /start": {
+      "main": [
+        [
+          {
+            "node": "Send Main Menu",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check for add_task",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check for view_tasks",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check for complete_",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for add_task": {
+      "main": [
+        [
+          {
+            "node": "Ask for Task Title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask for Task Title": {
+      "main": [
+        [
+          {
+            "node": "Wait for Task Title",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Task Title": {
+      "main": [
+        [
+          {
+            "node": "Create Task in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Task in Supabase": {
+      "main": [
+        [
+          {
+            "node": "Confirm Task Added",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for view_tasks": {
+      "main": [
+        [
+          {
+            "node": "Fetch User Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch User Tasks": {
+      "main": [
+        [
+          {
+            "node": "Format Tasks List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Tasks List": {
+      "main": [
+        [
+          {
+            "node": "Send Tasks List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for complete_": {
+      "main": [
+        [
+          {
+            "node": "Extract Task ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Task ID": {
+      "main": [
+        [
+          {
+            "node": "Mark Task Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Task Complete": {
+      "main": [
+        [
+          {
+            "node": "Confirm Completion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
