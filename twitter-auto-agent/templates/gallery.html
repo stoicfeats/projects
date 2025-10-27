@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery - Twitter Auto Agent{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-images"></i> Tweet Screenshots Gallery</h4>
+                <p class="mb-0 text-muted">Beautiful screenshots of all your posted tweets</p>
+            </div>
+            
+            <div class="card-body">
+                {% if tweets %}
+                    <div class="row">
+                        {% for tweet in tweets %}
+                        <div class="col-md-6 col-lg-4 mb-4" id="tweet-{{ tweet.id }}">
+                            <div class="card h-100">
+                                {% if tweet.screenshot_path %}
+                                    <img src="{{ url_for('gallery_image', filename=tweet.screenshot_path.split('/')[-1]) }}" 
+                                         class="card-img-top screenshot-thumbnail" 
+                                         alt="Tweet Screenshot"
+                                         style="cursor: pointer;"
+                                         onclick="openImageModal('{{ url_for('gallery_image', filename=tweet.screenshot_path.split('/')[-1]) }}', '{{ tweet.content }}', '{{ tweet.tweet_url }}')">
+                                {% endif %}
+                                
+                                <div class="card-body">
+                                    <p class="card-text small">{{ tweet.content }}</p>
+                                    
+                                    {% if tweet.tags %}
+                                        <div class="mb-2">
+                                            {% for tag in tweet.tags %}
+                                                <span class="badge bg-secondary me-1">#{{ tag }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">{{ tweet.posted_at }}</small>
+                                        <div>
+                                            <a href="{{ tweet.tweet_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            {% if tweet.screenshot_path %}
+                                                <button class="btn btn-sm btn-outline-success" 
+                                                        onclick="downloadImage('{{ url_for('gallery_image', filename=tweet.screenshot_path.split('/')[-1]) }}', 'tweet_{{ tweet.tweet_id }}.png')">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-images fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No screenshots yet</h5>
+                        <p class="text-muted">Screenshots will appear here after tweets are posted and captured.</p>
+                        <a href="{{ url_for('add_thought') }}" class="btn btn-twitter">
+                            <i class="fas fa-plus"></i> Add Some Thoughts
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tweet Screenshot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="Tweet Screenshot" class="img-fluid mb-3">
+                <p id="modalContent" class="text-muted"></p>
+                <a id="modalTweetLink" href="" target="_blank" class="btn btn-twitter">
+                    <i class="fab fa-twitter"></i> View Original Tweet
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openImageModal(imageSrc, content, tweetUrl) {
+    document.getElementById('modalImage').src = imageSrc;
+    document.getElementById('modalContent').textContent = content;
+    document.getElementById('modalTweetLink').href = tweetUrl;
+    
+    const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+    modal.show();
+}
+
+function downloadImage(imageSrc, filename) {
+    const link = document.createElement('a');
+    link.href = imageSrc;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+{% endblock %}
