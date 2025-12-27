@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Twitter Auto Agent{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Stats Cards -->
+    <div class="col-md-3 mb-4">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ stats.pending_thoughts }}</h3>
+                <p class="card-text">Pending Thoughts</p>
+                <i class="fas fa-lightbulb fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ stats.posted_thoughts }}</h3>
+                <p class="card-text">Posted Tweets</p>
+                <i class="fab fa-twitter fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ stats.screenshots_captured }}</h3>
+                <p class="card-text">Screenshots</p>
+                <i class="fas fa-camera fa-2x"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ stats.total_posted }}</h3>
+                <p class="card-text">Total Posted</p>
+                <i class="fas fa-chart-line fa-2x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <a href="{{ url_for('add_thought') }}" class="btn btn-twitter w-100">
+                            <i class="fas fa-plus"></i> Add New Thought
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <button onclick="postNow()" class="btn btn-success w-100" {% if not twitter_connected %}disabled{% endif %}>
+                            <i class="fas fa-paper-plane"></i> Post Now
+                        </button>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <a href="{{ url_for('gallery') }}" class="btn btn-info w-100">
+                            <i class="fas fa-images"></i> View Gallery
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Connection Status -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-plug"></i> Connection Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Twitter API:</strong>
+                        {% if twitter_connected %}
+                            <span class="text-success"><i class="fas fa-check-circle"></i> Connected</span>
+                        {% else %}
+                            <span class="text-danger"><i class="fas fa-times-circle"></i> Not Connected</span>
+                            <small class="text-muted d-block">Check your Twitter API credentials in .env file</small>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>TweetPik API:</strong>
+                        <span id="tweetpik-status" class="text-warning">
+                            <i class="fas fa-question-circle"></i> Unknown
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Thoughts -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb"></i> Recent Thoughts</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_thoughts %}
+                    {% for thought in recent_thoughts %}
+                    <div class="tweet-content">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <p class="mb-2">{{ thought.content }}</p>
+                                {% if thought.tags %}
+                                    <div class="mb-2">
+                                        {% for tag in thought.tags %}
+                                            <span class="badge bg-secondary me-1">#{{ tag }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <small class="text-muted">
+                                    {{ thought.created_at }} • 
+                                    <span class="badge priority-{{ thought.priority }}">
+                                        Priority {{ thought.priority }}
+                                    </span>
+                                </small>
+                            </div>
+                            <span class="badge bg-{{ 'success' if thought.status == 'posted' else 'secondary' }}">
+                                {{ thought.status.title() }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted text-center">No thoughts yet. <a href="{{ url_for('add_thought') }}">Add your first thought!</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Tweets -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fab fa-twitter"></i> Recent Tweets</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_tweets %}
+                    {% for tweet in recent_tweets %}
+                    <div class="tweet-content">
+                        <p class="mb-2">{{ tweet.content }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ tweet.posted_at }}</small>
+                            <div>
+                                <a href="{{ tweet.tweet_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <i class="fab fa-twitter"></i> View
+                                </a>
+                                {% if tweet.screenshot_path %}
+                                    <a href="{{ url_for('gallery') }}#tweet-{{ tweet.id }}" class="btn btn-sm btn-outline-info">
+                                        <i class="fas fa-image"></i> Screenshot
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted text-center">No tweets posted yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function postNow() {
+    if (confirm('Post the next tweet now?')) {
+        fetch('/api/post-now', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Tweet posting initiated! Check back in a few minutes.');
+                setTimeout(() => location.reload(), 2000);
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Error posting tweet: ' + error);
+        });
+    }
+}
+</script>
+{% endblock %}
