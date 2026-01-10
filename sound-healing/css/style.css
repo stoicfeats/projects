@@ -1,0 +1,472 @@
+:root {
+    --bg: #050505;
+    --accent: #e0e0e0;
+    --mercury: linear-gradient(135deg, #8e8e8e 0%, #ffffff 50%, #4a4a4a 100%);
+    --fluid-speed: 20s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- MERCURY BACKGROUND ENGINE --- */
+.canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    filter: url(#goo);
+    background: #000;
+}
+
+.blob {
+    position: absolute;
+    background: var(--mercury);
+    border-radius: 50%;
+    opacity: 0.6;
+    filter: blur(40px);
+    transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- LAYOUT --- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Space Mono', monospace;
+    font-weight: 800;
+    letter-spacing: -1px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+nav a:hover {
+    opacity: 1;
+}
+
+main {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    width: 100%;
+    /* display: flex;  Removed to handle sections individually */
+    /* align-items: center; */
+    /* padding: 0 10%; */
+}
+
+
+/* --- SECTIONS --- */
+main>section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+main>section#hero {
+    opacity: 1;
+    pointer-events: all;
+    display: flex;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.meta span {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: slideUp 0.8s forwards 0.2s;
+}
+
+h1 {
+    font-size: clamp(3rem, 12vw, 10rem);
+    line-height: 0.85;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    perspective: 1000px;
+}
+
+.word-wrapper {
+    display: block;
+    overflow: hidden;
+}
+
+.word {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: linear-gradient(to bottom, #fff, #444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- MODE SELECTOR --- */
+.mode-switcher {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: right;
+}
+
+.mode-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.3;
+    transition: all 0.4s;
+    padding: 10px 0;
+    position: relative;
+    cursor: none;
+    /* Inherit none */
+}
+
+/* Re-enable pointer events for buttons so we can click them even with cursor:none */
+.mode-btn {
+    pointer-events: all;
+}
+
+.mode-btn::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    transition: width 0.4s;
+}
+
+.mode-btn.active {
+    opacity: 1;
+    padding-right: 30px;
+}
+
+.mode-btn.active::after {
+    width: 40px;
+}
+
+/* --- CUSTOM CURSOR --- */
+#cursor {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: transform 0.1s ease;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.frequency-viz {
+    position: absolute;
+    bottom: 40px;
+    left: 10%;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 40px;
+    z-index: 20;
+}
+
+.bar {
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    height: 20%;
+    animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        height: 20%;
+    }
+
+    50% {
+        height: 100%;
+    }
+}
+
+/* --- NEW SECTIONS STYLING --- */
+.content-wrapper {
+    max-width: 1000px;
+    padding-right: 5%;
+}
+
+.content-section h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #fff, #888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #bbb;
+    max-width: 600px;
+}
+
+/* Alchemy Grid */
+.alchemy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.alchemy-item h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.alchemy-item p {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* Frequency List */
+.freq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.freq-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s;
+}
+
+.freq-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.freq-hz {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    min-width: 100px;
+}
+
+.freq-desc {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* About Grid */
+.about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+}
+
+.stat {
+    margin-bottom: 30px;
+}
+
+.stat-num {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #666;
+}
+
+/* Session Form */
+.session-form {
+    display: grid;
+    gap: 20px;
+    max-width: 500px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.form-group input,
+.form-group select {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #444;
+    color: #fff;
+    padding: 10px 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-bottom-color: #fff;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    cursor: none;
+    /* Main cursor handles it? No typically buttons need pointer */
+    pointer-events: all;
+    transition: transform 0.2s;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .mode-switcher {
+        bottom: 40px;
+        top: auto;
+        right: 20px;
+        transform: none;
+        flex-direction: row;
+    }
+
+    h1 {
+        font-size: 4rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-wrapper {
+        padding-right: 0;
+    }
+
+    main>section {
+        padding: 100px 20px;
+        overflow-y: auto;
+    }
+
+    /* Enable scroll on mobile */
+}
+
+svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
