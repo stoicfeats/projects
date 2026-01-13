@@ -308,6 +308,12 @@ main>section {
   position: relative;
 }
 
+/* Show first section by default on initial load */
+main>section#hero {
+  opacity: 1;
+  pointer-events: all;
+}
+
 main>section::before {
   content: '';
   position: fixed;
