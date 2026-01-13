@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudra Mind — Resonant Silt & Sound</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-silt: #F9F7F2;
+            --bg-sand: #EFECE5;
+            --text-earth: #2D2A26;
+            --accent-clay: #B08D74;
+            --sediment-1: #D6CFC7;
+            --sediment-2: #C4BCB1;
+            --grain-opacity: 0.18;
+            --transition-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-silt);
+            color: var(--text-earth);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        /* Materiality: Grain & Topography Texture */
+        .silt-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: var(--grain-opacity);
+            mix-blend-mode: multiply;
+        }
+
+        .topo-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Typography */
+        h1, h2 {
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-clay);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-earth);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.5;
+        }
+
+        /* Hero Section 1: Sonic Immersion */
+        .hero-pulse {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-pulse h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: 0.85;
+            z-index: 2;
+        }
+
+        .ripple-container {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40vw;
+            height: 40vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ripple {
+            position: absolute;
+            border: 1px solid var(--accent-clay);
+            border-radius: 50%;
+            animation: ripple-out 8s infinite var(--transition-smooth);
+            opacity: 0;
+        }
+
+        @keyframes ripple-out {
+            0% { width: 0%; height: 0%; opacity: 0; }
+            20% { opacity: 0.4; }
+            100% { width: 100%; height: 100%; opacity: 0; }
+        }
+
+        /* Hero Section 2: Frequency Earth (Stacked Topography) */
+        .hero-sediment {
+            min-height: 100vh;
+            padding: 10rem 10%;
+            background: var(--bg-sand);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .sediment-card {
+            background: var(--bg-silt);
+            padding: 4rem;
+            position: relative;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
+
+        .sediment-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent-clay);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Content Sections */
+        .content-reveal {
+            padding: 15rem 10%;
+            display: flex;
+            flex-direction: column;
+            gap: 10rem;
+        }
+
+        .reveal-item {
+            display: flex;
+            gap: 5rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s var(--transition-smooth);
+        }
+
+        .reveal-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .reveal-text {
+            flex: 1;
+        }
+
+        .reveal-text h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .reveal-image {
+            flex: 1;
+            aspect-ratio: 4/5;
+            background: var(--sediment-1);
+            position: relative;
+        }
+
+        .reveal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1) sepia(20%);
+            mix-blend-mode: multiply;
+        }
+
+        /* Audio Visualization Mockup */
+        .sound-library {
+            padding: 10rem 10%;
+            background: var(--text-earth);
+            color: var(--bg-silt);
+        }
+
+        .track-list {
+            margin-top: 5rem;
+        }
+
+        .track-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem 0;
+            display: grid;
+            grid-template-columns: 0.5fr 2fr 1fr 1fr;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .track-item:hover {
+            padding-left: 2rem;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .visualizer-mini {
+            display: flex;
+            gap: 3px;
+            height: 20px;
+            align-items: center;
+        }
+
+        .bar {
+            width: 2px;
+            height: 100%;
+            background: var(--bg-silt);
+            animation: sound-bar 1s infinite ease-in-out;
+        }
+
+        @keyframes sound-bar {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* CTA Button */
+        .btn-earth {
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            background: var(--text-earth);
+            color: var(--bg-silt);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            margin-top: 2rem;
+            transition: transform 0.3s var(--transition-smooth);
+        }
+
+        .btn-earth:hover {
+            transform: translateY(-5px);
+            background: var(--accent-clay);
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--sediment-2);
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--accent-clay);
+            transform: scale(2);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-sediment, .reveal-item, .track-item {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .nav-links { display: none; }
+            nav { padding: 1.5rem 2rem; }
+            .hero-pulse h1 { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <svg class="silt-texture">
+        <filter id='grainy'>
+            <feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/>
+            <feColorMatrix type="saturate" values="0"/>
+        </filter>
+        <rect width='100%' height='100%' filter='url(#grainy)'/>
+    </svg>
+
+    <nav>
+        <div class="logo">Mudra Minds.</div>
+        <div class="nav-links">
+            <a href="#">Aerobics</a>
+            <a href="#">Zumba</a>
+            <a href="#">Hatha Yoga</a>
+            <a href="#">Sessions</a>
+        </div>
+        <div class="mono">Session 001—Live</div>
+    </nav>
+
+    <div class="scroll-progress">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- Hero 1 -->
+    <section class="hero-pulse">
+        <div class="mono" style="margin-bottom: 2rem;">Sonic Topography</div>
+        <h1>Resonant<br>Stillness</h1>
+        <p style="max-width: 400px; margin-top: 2rem; opacity: 0.7;">
+            Harnessing the vibrational patterns of fine silt and terrestrial frequencies to ground your conscious state.
+        </p>
+        <a href="#" class="btn-earth">BEGIN LISTENING</a>
+
+        <div class="ripple-container">
+            <div class="ripple" style="animation-delay: 0s"></div>
+            <div class="ripple" style="animation-delay: 2s"></div>
+            <div class="ripple" style="animation-delay: 4s"></div>
+            <div class="ripple" style="animation-delay: 6s"></div>
+        </div>
+    </section>
+
+    <!-- Hero 2 -->
+    <section class="hero-sediment">
+        <div class="sediment-card">
+            <div class="mono">Biological Impact</div>
+            <h2 style="font-size: 2.5rem; margin: 1.5rem 0;">Terrestrial Grounding</h2>
+            <p>Our method layers low-frequency oscillations with organic field recordings of tectonic shifts and wind-worn silt. This isn't just sound; it's the earth speaking back to you.</p>
+            
+            <div class="stat-grid">
+                <div>
+                    <div class="mono">Hz Range</div>
+                    <div style="font-size: 1.5rem; font-weight: 800;">7.83—432</div>
+                </div>
+                <div>
+                    <div class="mono">Sediment Type</div>
+                    <div style="font-size: 1.5rem; font-weight: 800;">Aeolian</div>
+                </div>
+            </div>
+        </div>
+        <div style="position: relative;">
+            <svg viewBox="0 0 500 500" class="topo-svg-static">
+                <path d="M50,250 Q125,100 250,250 T450,250" fill="none" stroke="var(--accent-clay)" stroke-width="0.5" />
+                <path d="M50,270 Q125,120 250,270 T450,270" fill="none" stroke="var(--accent-clay)" stroke-width="0.5" />
+                <path d="M50,290 Q125,140 250,290 T450,290" fill="none" stroke="var(--accent-clay)" stroke-width="0.5" />
+                <circle cx="250" cy="250" r="100" fill="none" stroke="var(--accent-clay)" stroke-dasharray="2 4" />
+            </svg>
+            <p class="mono" style="text-align: right; margin-top: 2rem;">Mapping internal resonance</p>
+        </div>
+    </section>
+
+    <!-- Content Reveal Section -->
+    <section class="content-reveal">
+        <div class="reveal-item">
+            <div class="reveal-image">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" alt="Yoga">
+            </div>
+            <div class="reveal-text">
+                <div class="mono">Phase 01</div>
+                <h2>The Unfolding Breath</h2>
+                <p>Yoga is the bridge between the physical density of the body and the weightless frequency of the mind. Each movement is a ripple in the sand, settling into perfect geometric form.</p>
+            </div>
+        </div>
+
+        <div class="reveal-item">
+            <div class="reveal-image">
+                <img src="https://images.unsplash.com/photo-1518244484609-c49283344391?auto=format&fit=crop&q=80&w=800" alt="Meditation">
+            </div>
+            <div class="reveal-text">
+                <div class="mono">Phase 02</div>
+                <h2>Tectonic Stillness</h2>
+                <p>Meditation is the observation of sediment settling. We provide the sonic environment for your thoughts to sink, leaving only the clear, resonant foundation of the self.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sound Library -->
+    <section class="sound-library">
+        <div class="mono">Frequency Archive</div>
+        <h2 style="font-size: 3rem; margin: 1rem 0;">Sediment Sounds</h2>
+        
+        <div class="track-list">
+            <div class="track-item">
+                <div class="mono">01</div>
+                <div style="font-weight: 800;">Aeolian Drift</div>
+                <div class="mono">Wind & Silt</div>
+                <div class="visualizer-mini">
+                    <div class="bar" style="animation-delay: 0.1s"></div>
+                    <div class="bar" style="animation-delay: 0.3s"></div>
+                    <div class="bar" style="animation-delay: 0.2s"></div>
+                    <div class="bar" style="animation-delay: 0.5s"></div>
+                </div>
+            </div>
+            <div class="track-item">
+                <div class="mono">02</div>
+                <div style="font-weight: 800;">Crustal Resonance</div>
+                <div class="mono">Deep Hum</div>
+                <div class="visualizer-mini">
+                    <div class="bar" style="animation-delay: 0.4s"></div>
+                    <div class="bar" style="animation-delay: 0.1s"></div>
+                    <div class="bar" style="animation-delay: 0.6s"></div>
+                    <div class="bar" style="animation-delay: 0.2s"></div>
+                </div>
+            </div>
+            <div class="track-item">
+                <div class="mono">03</div>
+                <div style="font-weight: 800;">Lithosphere Alpha</div>
+                <div class="mono">Binaural</div>
+                <div class="visualizer-mini">
+                    <div class="bar" style="animation-delay: 0.2s"></div>
+                    <div class="bar" style="animation-delay: 0.5s"></div>
+                    <div class="bar" style="animation-delay: 0.1s"></div>
+                    <div class="bar" style="animation-delay: 0.3s"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 5rem 10%; background: var(--bg-silt); border-top: 1px solid var(--sediment-1);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <div class="logo">AURA.</div>
+                <p class="mono" style="margin-top: 1rem;">EST. 2024 — ARCHITECTS OF SOUND</p>
+            </div>
+            <div class="mono">All frequencies protected.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Simple scroll progress interaction
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const dots = document.querySelectorAll('.dot');
+            
+            let current = 0;
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === current);
+            });
+        });
+
+        // Mouse movement parallax for topography feel
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            const ripples = document.querySelectorAll('.ripple');
+            ripples.forEach((ripple, idx) => {
+                const move = (idx + 1) * 10;
+                ripple.style.transform = `translate(${x * move}px, ${y * move}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

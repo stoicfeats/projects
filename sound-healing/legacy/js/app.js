@@ -3,19 +3,19 @@ const sectionContent = {
     aerobics: `
         <div class="content-wrapper">
             <h2>Aerobics</h2>
-            <p>Elevate your heart rate and your spirit. Our high-energy aerobics sessions are designed to burn calories while boosting your endorphins. Experience the rhythm of movement.</p>
+            <p>High-energy rhythmic movement to boost cardiovascular health.</p>
             <div class="alchemy-grid">
-                <div class="alchemy-item">
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
                     <h3>Cardio Blast</h3>
-                    <p>High intensity interval training set to pumping beats.</p>
+                    <p>Intense interval training for max caloric burn.</p>
                 </div>
-                <div class="alchemy-item">
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
                     <h3>Step & Tone</h3>
-                    <p>Classic step aerobics with a modern, fluid twist.</p>
+                    <p>Classic step routines with a modern twist.</p>
                 </div>
-                <div class="alchemy-item">
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
                     <h3>Endurance</h3>
-                    <p>Build stamina and resilience through sustained movement.</p>
+                    <p>Long-form sessions to build stamina.</p>
                 </div>
             </div>
         </div>
@@ -23,19 +23,19 @@ const sectionContent = {
     yoga: `
         <div class="content-wrapper">
             <h2>Yoga</h2>
-            <p>Find your center. Our yoga practice combines breath, movement, and mindfulness to align your body and soul. From Vinyasa flow to restorative Hatha, find the path that suits you.</p>
+            <p>Align breath and body through mindful movement.</p>
             <div class="alchemy-grid">
-                <div class="alchemy-item">
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
                     <h3>Vinyasa Flow</h3>
-                    <p>Dynamic movement syncing breath with motion.</p>
+                    <p>Fluid sequences connecting breath to motion.</p>
                 </div>
-                <div class="alchemy-item">
-                    <h3>Hatha Align</h3>
-                    <p>Focus on posture, alignment, and holding space.</p>
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Power Yoga</h3>
+                    <p>Strength-building poses for core stability.</p>
                 </div>
-                <div class="alchemy-item">
-                    <h3>Yin Restoration</h3>
-                    <p>Deep stretching to release fascia and stagnant energy.</p>
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Restorative</h3>
+                    <p>Gentle stretching to release deep tension.</p>
                 </div>
             </div>
         </div>
@@ -43,15 +43,19 @@ const sectionContent = {
     zumba: `
         <div class="content-wrapper">
             <h2>Zumba</h2>
-            <p>Ditch the workout, join the party. Unleash your inner dancer with our Zumba classes. A fusion of Latin and international music creates a dynamic, exciting, and effective fitness system.</p>
-             <div class="alchemy-grid">
-                <div class="alchemy-item">
+            <p>Dance functionality meets fitness in this Latin-inspired workout.</p>
+            <div class="alchemy-grid">
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
                     <h3>Latin Fusion</h3>
-                    <p>Salsa, Merengue, Cumbia and Reggaeton beats.</p>
+                    <p>Salsa, Merengue, and Cumbia rhythms.</p>
                 </div>
-                <div class="alchemy-item">
-                    <h3>Rhythm Core</h3>
-                    <p>Dance moves specifically designed to target your core.</p>
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Hip Hop</h3>
+                    <p>Urban beats and high-energy choreography.</p>
+                </div>
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Strong Nation</h3>
+                    <p>Beat-synced high intensity interval training.</p>
                 </div>
             </div>
         </div>
@@ -59,20 +63,48 @@ const sectionContent = {
     meditation: `
         <div class="content-wrapper">
             <h2>Meditation</h2>
-            <p>Return to stillness. In a world of constant noise, we offer a sanctuary of silence. Our guided meditations help you cultivate mindfulness, reduce stress, and find inner peace.</p>
-            <div class="freq-list">
-                <div class="freq-item">
-                    <span class="freq-hz">Breath</span>
-                    <span class="freq-desc">Focusing on the rhythm of life.</span>
+            <p>Find stillness and clarity in the chaos.</p>
+            <div class="alchemy-grid">
+                 <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Mindfulness</h3>
+                    <p>Cultivating present-moment awareness.</p>
                 </div>
-                <div class="freq-item">
-                    <span class="freq-hz">Sound</span>
-                    <span class="freq-desc">Using bowls and chimes to guide attention.</span>
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Sound Bath</h3>
+                    <p>Deep relaxation through acoustic resonance.</p>
                 </div>
-                <div class="freq-item">
-                    <span class="freq-hz">Guidance</span>
-                    <span class="freq-desc">Visualizations for mental clarity.</span>
+                <div class="alchemy-item" style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(5px);">
+                    <h3>Breathwork</h3>
+                    <p>Harnessing the power of conscious breathing.</p>
                 </div>
+            </div>
+        </div>
+    `,
+    session: `
+        <div class="content-wrapper">
+            <h2>Book a Session</h2>
+            <p>Start your journey with us.</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 16px; backdrop-filter: blur(10px); max-width: 500px;">
+                <form class="session-form">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="email@address.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Interest</label>
+                        <select>
+                            <option>Aerobics</option>
+                            <option>Yoga</option>
+                            <option>Zumba</option>
+                            <option>Meditation</option>
+                        </select>
+                    </div>
+                    <button type="button" class="submit-btn" onclick="alert('Booking received!')">Reserve Spot</button>
+                </form>
             </div>
         </div>
     `
@@ -116,19 +148,19 @@ document.querySelector('.logo').addEventListener('click', () => {
 function showSection(id) {
     // Content Injection Logic
     const target = document.getElementById(id);
+    // CRITICAL: Always inject if different, OR just inject if empty. 
+    // Since we only have static content, empty check is fine.
     if (target && !target.innerHTML.trim() && sectionContent[id]) {
         target.innerHTML = sectionContent[id];
     }
 
     // Hide OTHER sections
     document.querySelectorAll('main > section').forEach(sec => {
-        if (sec.id !== id) { // CRITICAL FIX: Don't hide the target if we just showed it!
+        if (sec.id !== id) {
             sec.style.opacity = '0';
             sec.style.pointerEvents = 'none';
-            // Only set display:none if it's NOT the target. 
-            // We use a small timeout to allow opacity fade, but we must ensure we don't accidentally hide our target
             setTimeout(() => {
-                if (sec.id !== id) {
+                if (sec.id !== id) { // Double check inside timeout
                     sec.style.display = 'none';
                 }
             }, 500);
@@ -236,8 +268,8 @@ const modes = {
         color: 'linear-gradient(135deg, #8e8e8e 0%, #ffffff 50%, #4a4a4a 100%)'
     },
     aerobic: {
-        title: "Aerobics",
-        sub: "Movement",
+        title: "Sonic",
+        sub: "Nature",
         freq: "128 BPM",
         bpm: "High Energy",
         label: "CARDIO",
