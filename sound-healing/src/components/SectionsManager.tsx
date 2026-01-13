@@ -177,11 +177,11 @@ export default function SectionsManager() {
                             </div>
 
                             <button 
-                                onClick={() => {}} 
+                                onClick={() => window.open('https://wa.me/919876543210?text=Hello%20Mudra%20Minds!%20I%20would%20like%20to%20book%20a%20session.', '_blank')} 
                                 style={{ 
                                     width: '100%', 
-                                    background: '#fff', 
-                                    color: '#000', 
+                                    background: '#25D366', 
+                                    color: '#fff', 
                                     border: 'none', 
                                     padding: '14px 20px', 
                                     fontSize: '0.85rem',
@@ -189,10 +189,17 @@ export default function SectionsManager() {
                                     letterSpacing: '1px',
                                     fontWeight: '600',
                                     borderRadius: '8px',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '8px'
                                 }}
                             >
-                                Book Now
+                                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
+                                WhatsApp Us
                             </button>
                         </div>
                     </div>
@@ -204,7 +211,12 @@ export default function SectionsManager() {
                 <div className="content-wrapper">
                     {/* Section Intro */}
                     <div className="section-intro">
-                        <h2>Aerobics</h2>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '1rem' }}>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.3 }}>
+                                <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z" fill="currentColor"/>
+                            </svg>
+                            <h2>Aerobics</h2>
+                        </div>
                         <p className="section-tagline">High-energy rhythmic movement to boost cardiovascular health and transform your fitness journey.</p>
                         
                         <div className="meaning">
@@ -291,7 +303,12 @@ export default function SectionsManager() {
                 <div className="content-wrapper">
                     {/* Section Intro */}
                     <div className="section-intro">
-                        <h2>Yoga</h2>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '1rem' }}>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.3 }}>
+                                <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z" fill="currentColor"/>
+                            </svg>
+                            <h2>Yoga</h2>
+                        </div>
                         <p className="section-tagline">Align breath and body through mindful movement and ancient sequences passed down through generations.</p>
                         
                         <div className="meaning">
@@ -397,7 +414,12 @@ export default function SectionsManager() {
                 <div className="content-wrapper">
                     {/* Section Intro */}
                     <div className="section-intro">
-                        <h2>Zumba</h2>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '1rem' }}>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.3 }}>
+                                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" fill="currentColor"/>
+                            </svg>
+                            <h2>Zumba</h2>
+                        </div>
                         <p className="section-tagline">Dance functionality meets fitness in this Latin-inspired workout that makes exercise feel like a celebration.</p>
                         
                         <div className="meaning">
@@ -488,7 +510,14 @@ export default function SectionsManager() {
                 <div className="content-wrapper">
                     {/* Section Intro */}
                     <div className="section-intro">
-                        <h2>Meditation</h2>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '1rem' }}>
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.3 }}>
+                                <circle cx="12" cy="6" r="2" fill="currentColor"/>
+                                <path d="M21 16v-2c-2.24 0-4.16-.96-5.6-2.68l-1.34-1.6c-.56-.67-1.52-.67-2.12 0l-1.34 1.6C9.16 13.04 7.24 14 5 14v2c2.77 0 5.19-1.17 7-3.25 1.81 2.08 4.23 3.25 7 3.25z" fill="currentColor"/>
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z" fill="currentColor"/>
+                            </svg>
+                            <h2>Meditation</h2>
+                        </div>
                         <p className="section-tagline">Find stillness and clarity in the chaos through ancient mindfulness practices and sonic topography.</p>
                         
                         <div className="meaning">
@@ -684,23 +713,17 @@ export default function SectionsManager() {
                                 </ul>
                             </div>
 
-                            {/* Pricing */}
-                            <div className="info-box">
-                                <h4>Pricing Options</h4>
-                                <ul>
-                                    <li>Drop-in Single Session: $25</li>
-                                    <li>5-Class Pack: $100 (Save 20%)</li>
-                                    <li>Monthly Unlimited: $149</li>
-                                    <li>Annual Membership: $1,299 (Best Value)</li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
 
                     {/* Contact Info */}
                     <div className="text-block" style={{ marginTop: '3rem', textAlign: 'center' }}>
-                        <p style={{ maxWidth: '100%', margin: '0 auto' }}>
-                            Questions? Contact us at <strong style={{ color: '#fff' }}>hello@soundhealing.studio</strong> or call <strong style={{ color: '#fff' }}>+1 (555) 432-HZ00</strong>
+                        <p style={{ maxWidth: '100%', margin: '0 auto', color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+                            Questions? Contact us at <strong style={{ color: 'var(--text-primary)' }}>namaste@mudraminds.in</strong> or WhatsApp <strong 
+                                style={{ color: '#25D366', cursor: 'pointer' }}
+                                onClick={() => window.open('https://wa.me/919876543210?text=Hello%20Mudra%20Minds!%20I%20have%20a%20question.', '_blank')}
+                            >+91 98765 43210</strong>
                         </p>
                     </div>
                 </div>
