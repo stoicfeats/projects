@@ -300,7 +300,7 @@ main>section {
   display: flex;
   align-items: flex-start;
   padding: 120px 8% 80px;
-  opacity: 0;
+  opacity: 0 !important;
   pointer-events: none;
   transition: opacity 0.5s ease;
   overflow-y: auto;
@@ -308,10 +308,19 @@ main>section {
   position: relative;
 }
 
-/* Show first section by default on initial load */
-main>section#hero {
+main>section.active {
+  opacity: 1 !important;
+  pointer-events: all;
+}
+
+/* Show first section by default on initial load (before JS hydration) */
+main>section:first-of-type {
   opacity: 1;
   pointer-events: all;
+}
+
+main>section:first-of-type.active {
+  opacity: 1;
 }
 
 main>section::before {
