@@ -683,13 +683,24 @@ export default function SectionsManager() {
                                     <li>Progress tracking and recommendations</li>
                                 </ul>
                             </div>
+
+                            {/* Pricing */}
+                            <div className="info-box">
+                                <h4>Pricing Options</h4>
+                                <ul>
+                                    <li>Drop-in Single Session: $25</li>
+                                    <li>5-Class Pack: $100 (Save 20%)</li>
+                                    <li>Monthly Unlimited: $149</li>
+                                    <li>Annual Membership: $1,299 (Best Value)</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
                     {/* Contact Info */}
-                    <div className="text-block session-contact" style={{ marginTop: '3rem', textAlign: 'center' }}>
-                        <p style={{ maxWidth: '100%', margin: '0 auto', color: 'var(--text-secondary)' }}>
-                            Questions? Contact us at <strong style={{ color: 'var(--text-primary)' }}>mudramind@gmail.com</strong> or call <strong style={{ color: 'var(--text-primary)' }}>+91 98765 43210</strong>
+                    <div className="text-block" style={{ marginTop: '3rem', textAlign: 'center' }}>
+                        <p style={{ maxWidth: '100%', margin: '0 auto' }}>
+                            Questions? Contact us at <strong style={{ color: '#fff' }}>hello@soundhealing.studio</strong> or call <strong style={{ color: '#fff' }}>+1 (555) 432-HZ00</strong>
                         </p>
                     </div>
                 </div>
