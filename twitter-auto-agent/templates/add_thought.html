@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Add Thought - Twitter Auto Agent{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-plus"></i> Add New Thought</h4>
+                <p class="mb-0 text-muted">Share your thoughts and ideas - the agent will post them automatically!</p>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="thoughtForm">
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Tweet Content <span class="text-danger">*</span></label>
+                        <textarea 
+                            class="form-control" 
+                            id="content" 
+                            name="content" 
+                            rows="4" 
+                            placeholder="What's on your mind? (280 characters max)"
+                            required
+                            maxlength="280"
+                        ></textarea>
+                        <div class="form-text">
+                            <span id="charCount">0</span>/280 characters
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tags" class="form-label">Tags</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="tags" 
+                                    name="tags" 
+                                    placeholder="tech, ai, productivity (comma-separated)"
+                                >
+                                <div class="form-text">Add relevant tags for organization</div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="priority" class="form-label">Priority</label>
+                                <select class="form-select" id="priority" name="priority">
+                                    <option value="1">Low Priority</option>
+                                    <option value="2" selected>Medium Priority</option>
+                                    <option value="3">High Priority</option>
+                                </select>
+                                <div class="form-text">Higher priority tweets get posted first</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes (Optional)</label>
+                        <textarea 
+                            class="form-control" 
+                            id="notes" 
+                            name="notes" 
+                            rows="2" 
+                            placeholder="Any additional notes or context for this thought..."
+                        ></textarea>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('thoughts') }}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-twitter">
+                            <i class="fas fa-save"></i> Save Thought
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Quick Tips -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-lightbulb"></i> Quick Tips</h6>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0 small">
+                    <li><strong>Keep it engaging:</strong> Ask questions, share insights, or tell stories</li>
+                    <li><strong>Use hashtags wisely:</strong> 1-3 relevant hashtags work best</li>
+                    <li><strong>Add personality:</strong> Emojis and personal anecdotes make tweets more relatable</li>
+                    <li><strong>Vary your content:</strong> Mix educational, personal, and promotional content</li>
+                    <li><strong>High priority:</strong> Use for time-sensitive or important announcements</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Character counter
+document.getElementById('content').addEventListener('input', function() {
+    const charCount = this.value.length;
+    const charCountElement = document.getElementById('charCount');
+    charCountElement.textContent = charCount;
+    
+    if (charCount > 280) {
+        charCountElement.style.color = '#dc3545';
+    } else if (charCount > 250) {
+        charCountElement.style.color = '#ffc107';
+    } else {
+        charCountElement.style.color = '#6c757d';
+    }
+});
+
+// Form submission with loading state
+document.getElementById('thoughtForm').addEventListener('submit', function() {
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    submitBtn.disabled = true;
+});
+</script>
+{% endblock %}

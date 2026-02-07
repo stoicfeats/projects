@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Thoughts - Twitter Auto Agent{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4><i class="fas fa-lightbulb"></i> Your Thoughts</h4>
+                <a href="{{ url_for('add_thought') }}" class="btn btn-twitter">
+                    <i class="fas fa-plus"></i> Add Thought
+                </a>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="card-body border-bottom">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if current_filter == 'all' else '' }}" 
+                           href="{{ url_for('thoughts', status='all') }}">
+                            All
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if current_filter == 'pending' else '' }}" 
+                           href="{{ url_for('thoughts', status='pending') }}">
+                            Pending
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if current_filter == 'posted' else '' }}" 
+                           href="{{ url_for('thoughts', status='posted') }}">
+                            Posted
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if current_filter == 'archived' else '' }}" 
+                           href="{{ url_for('thoughts', status='archived') }}">
+                            Archived
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="card-body">
+                {% if thoughts %}
+                    {% for thought in thoughts %}
+                    <div class="tweet-content mb-3" id="thought-{{ thought.id }}">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <p class="mb-2">{{ thought.content }}</p>
+                                
+                                {% if thought.tags %}
+                                    <div class="mb-2">
+                                        {% for tag in thought.tags %}
+                                            <span class="badge bg-secondary me-1">#{{ tag }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                
+                                {% if thought.notes %}
+                                    <div class="mb-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-sticky-note"></i> {{ thought.notes }}
+                                        </small>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock"></i> {{ thought.created_at }}
+                                    </small>
+                                    
+                                    <div>
+                                        <span class="badge priority-{{ thought.priority }} me-2">
+                                            Priority {{ thought.priority }}
+                                        </span>
+                                        <span class="badge bg-{{ 'success' if thought.status == 'posted' else 'warning' if thought.status == 'pending' else 'secondary' }}">
+                                            {{ thought.status.title() }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-lightbulb fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No thoughts found</h5>
+                        <p class="text-muted">Start by adding your first thought!</p>
+                        <a href="{{ url_for('add_thought') }}" class="btn btn-twitter">
+                            <i class="fas fa-plus"></i> Add Your First Thought
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
