@@ -4,39 +4,43 @@ import { useEffect, useState } from 'react';
 
 export function BrowserCheck() {
     const [isSupported, setIsSupported] = useState(true);
-    const [showWarning, setShowWarning] = useState(false);
 
     useEffect(() => {
-        // Check browser capabilities
+        // Only block ancient browsers (IE11 and below)
         const checkBrowserSupport = () => {
-            const hasBasicSupport =
-                typeof window !== 'undefined' &&
-                'fetch' in window &&
-                'Promise' in window &&
-                Array.isArray([].includes);
+            try {
+                // Check for basic ES6 support
+                const hasES6 = typeof Promise !== 'undefined' && 
+                               typeof Array.prototype.includes === 'function' &&
+                               typeof Object.assign === 'function';
+                
+                // Check for fetch API (not in IE11)
+                const hasFetch = typeof fetch === 'function';
+                
+                // Detect IE11 explicitly (using user agent as TypeScript-safe approach)
+                const isIE11 = /Trident\/7\.0/.test(navigator.userAgent);
+                
+                // Only block if it's IE11 or missing critical features
+                if (isIE11 || !hasES6 || !hasFetch) {
+                    console.error('Browser not supported:', { isIE11, hasES6, hasFetch });
+                    setIsSupported(false);
+                    return false;
+                }
 
-            const hasMediumSupport =
-                hasBasicSupport &&
-                'requestAnimationFrame' in window &&
-                'localStorage' in window;
+                // Log browser info for debugging
+                console.log('Browser check passed:', {
+                    userAgent: navigator.userAgent,
+                    hasES6,
+                    hasFetch
+                });
 
-            const hasFullSupport =
-                hasMediumSupport &&
-                'crypto' in window &&
-                'IntersectionObserver' in window;
-
-            if (!hasBasicSupport) {
+                return true;
+            } catch (error) {
+                // If any check fails, assume unsupported
+                console.error('Browser check error:', error);
                 setIsSupported(false);
-                setShowWarning(true);
                 return false;
             }
-
-            // Warn but don't block if missing some features
-            if (!hasFullSupport) {
-                console.warn('Some features may not work correctly on this browser');
-            }
-
-            return true;
         };
 
         checkBrowserSupport();
