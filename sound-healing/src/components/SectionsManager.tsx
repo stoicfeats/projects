@@ -120,8 +120,8 @@ Message: ${formData.message}`;
                                 </p>
                                 <p style={{ fontSize: '1rem', color: '#888', lineHeight: '1.8' }}>
                                     Through instruments like <strong style={{ color: 'var(--text-primary)' }}>Singing Bowls</strong>,
-                                    <strong style={{ color: 'var(--text-primary)' }}> Gongs</strong>, and <strong style={{ color: 'var(--text-primary)' }}>Tuning Forks</strong>
-                                    tuned to healing frequencies (432Hz, 528Hz), we create immersive sound experiences that promote deep relaxation and healing.
+                                    <strong style={{ color: 'var(--text-primary)' }}> Gongs</strong>, and <strong style={{ color: 'var(--text-primary)' }}>Tuning Forks </strong>
+                                     tuned to healing frequencies (432Hz, 528Hz), we create immersive sound experiences that promote deep relaxation and healing.
                                 </p>
                             </div>
 
