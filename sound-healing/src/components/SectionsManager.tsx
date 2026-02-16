@@ -201,7 +201,7 @@ Message: ${formData.message}`;
                                 <p style={{ fontSize: '0.75rem', color: '#666', textTransform: 'uppercase', marginBottom: '12px' }}>Contact</p>
                                 <p style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '8px' }}>📍 Plot Number 43, Eklavya Vihar, Sector 9, Vasundhara, Ghaziabad.</p>
                                 <p style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '8px' }}>📞 +91 9718441160</p>
-                                <p style={{ fontSize: '0.9rem', color: '#aaa' }}>✉️ namaste@mudra.in</p>
+                                <p style={{ fontSize: '0.9rem', color: '#aaa' }}>✉️ mind.mudra18@gmail.com</p>
                             </div>
 
                             <button
@@ -626,7 +626,7 @@ Message: ${formData.message}`;
                     {/* Contact Info */}
                     <div className="text-block session-contact" style={{ marginTop: '3rem', textAlign: 'center' }}>
                         <p style={{ maxWidth: '100%', margin: '0 auto', color: 'var(--text-secondary)' }}>
-                            Questions? Contact us at <strong style={{ color: 'var(--text-primary)' }}>mudramind@gmail.com</strong> or call <strong style={{ color: 'var(--text-primary)' }}>+91 9718441160</strong>
+                            Questions? Contact us at <strong style={{ color: 'var(--text-primary)' }}>mind.mudra18@gmail.com</strong> or call <strong style={{ color: 'var(--text-primary)' }}>+91 9718441160</strong>
                         </p>
                     </div>
                 </div>
