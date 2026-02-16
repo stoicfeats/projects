@@ -2,9 +2,37 @@
 
 import { useApp } from './AppContext';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function SectionsManager() {
     const { activeSection, activeMode } = useApp();
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        interest: '',
+        experience: 'Beginner',
+        message: ''
+    });
+
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleBooking = (e: React.FormEvent) => {
+        e.preventDefault();
+        const text = `Hi, I would like to book a session.
+        
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Interest: ${formData.interest}
+Experience: ${formData.experience}
+Message: ${formData.message}`;
+        window.open(`https://wa.me/919718441160?text=${encodeURIComponent(text)}`, '_blank');
+    };
 
     return (
         <main>
@@ -58,7 +86,7 @@ export default function SectionsManager() {
                                 Welcome to Mudra Minds
                             </h2>
                             <p style={{ fontSize: '1.1rem', color: '#999', lineHeight: '1.8', marginBottom: '40px' }}>
-                                Sound is the Divine. Ancient wisdom teaches that the universe was created through sound vibration. 
+                                Sound is the Divine. Ancient wisdom teaches that the universe was created through sound vibration.
                                 Our practice combines sacred frequencies with modern wellness for complete transformation.
                             </p>
 
@@ -87,12 +115,12 @@ export default function SectionsManager() {
                                     What is Sound Healing?
                                 </h3>
                                 <p style={{ fontSize: '1rem', color: '#888', lineHeight: '1.8', marginBottom: '16px' }}>
-                                    <strong style={{ color: '#bbb' }}>Nāda Yoga</strong> (नाद योग) is the ancient yoga of sound. 
+                                    <strong style={{ color: '#bbb' }}>Nāda Yoga</strong> (नाद योग) is the ancient yoga of sound.
                                     "Nāda" means sound or flow, and this practice uses vibrations to harmonize body, mind, and spirit.
                                 </p>
                                 <p style={{ fontSize: '1rem', color: '#888', lineHeight: '1.8' }}>
-                                    Through instruments like <strong style={{ color: '#bbb' }}>Singing Bowls</strong>, 
-                                    <strong style={{ color: '#bbb' }}> Gongs</strong>, and <strong style={{ color: '#bbb' }}>Tuning Forks</strong> 
+                                    Through instruments like <strong style={{ color: '#bbb' }}>Singing Bowls</strong>,
+                                    <strong style={{ color: '#bbb' }}> Gongs</strong>, and <strong style={{ color: '#bbb' }}>Tuning Forks</strong>
                                     tuned to healing frequencies (432Hz, 528Hz), we create immersive sound experiences that promote deep relaxation and healing.
                                 </p>
                             </div>
@@ -146,7 +174,7 @@ export default function SectionsManager() {
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}>
                                     <span style={{ fontSize: '1.5rem' }}>💃</span>
                                     <div>
-                                        <p style={{ color: '#fff', fontWeight: '500', marginBottom: '2px' }}>Aerobics & Zumba</p>
+                                        <p style={{ color: '#fff', fontWeight: '500', marginBottom: '2px' }}>Zumba</p>
                                         <p style={{ fontSize: '0.85rem', color: '#666' }}>High-energy fitness with rhythm</p>
                                     </div>
                                 </div>
@@ -156,7 +184,7 @@ export default function SectionsManager() {
                         {/* Right Sidebar - Quick Book */}
                         <div className="hero-sidebar">
                             <h4 style={{ fontSize: '1rem', color: '#fff', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: '600' }}>Quick Book</h4>
-                            
+
                             <div style={{ marginBottom: '24px' }}>
                                 <p style={{ fontSize: '0.75rem', color: '#666', textTransform: 'uppercase', marginBottom: '8px' }}>Next Session</p>
                                 <p style={{ fontSize: '1rem', color: '#fff', marginBottom: '4px' }}>Morning Yoga Flow</p>
@@ -171,19 +199,19 @@ export default function SectionsManager() {
 
                             <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px', marginBottom: '20px' }}>
                                 <p style={{ fontSize: '0.75rem', color: '#666', textTransform: 'uppercase', marginBottom: '12px' }}>Contact</p>
-                                <p style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '8px' }}>📍 Mumbai, India</p>
-                                <p style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '8px' }}>📞 +91 98765 43210</p>
+                                <p style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '8px' }}>📍 Plot Number 43, Eklavya Vihar, Sector 9, Vasundhara, Ghaziabad.</p>
+                                <p style={{ fontSize: '0.9rem', color: '#aaa', marginBottom: '8px' }}>📞 +91 9718441160</p>
                                 <p style={{ fontSize: '0.9rem', color: '#aaa' }}>✉️ namaste@mudra.in</p>
                             </div>
 
-                            <button 
-                                onClick={() => {}} 
-                                style={{ 
-                                    width: '100%', 
-                                    background: '#fff', 
-                                    color: '#000', 
-                                    border: 'none', 
-                                    padding: '14px 20px', 
+                            <button
+                                onClick={() => { }}
+                                style={{
+                                    width: '100%',
+                                    background: '#fff',
+                                    color: '#000',
+                                    border: 'none',
+                                    padding: '14px 20px',
                                     fontSize: '0.85rem',
                                     textTransform: 'uppercase',
                                     letterSpacing: '1px',
@@ -194,97 +222,12 @@ export default function SectionsManager() {
                             >
                                 Book Now
                             </button>
+
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* AEROBICS SECTION - Business offering with meaning and benefits */}
-            <section id="aerobics" className={`content-section ${activeSection === 'aerobics' ? 'active' : ''}`}>
-                <div className="content-wrapper">
-                    {/* Section Intro */}
-                    <div className="section-intro">
-                        <h2>Aerobics</h2>
-                        <p className="section-tagline">High-energy rhythmic movement to boost cardiovascular health and transform your fitness journey.</p>
-                        
-                        <div className="meaning">
-                            <strong>What is Aerobics?</strong> Aerobics, derived from the Greek word "aero" meaning air, is a form of physical exercise that combines rhythmic aerobic movements with stretching and strength training routines. Our aerobics program is designed to improve all elements of fitness through structured, music-driven workouts that elevate your heart rate while keeping you engaged and motivated.
-                        </div>
-                    </div>
-
-                    {/* Our Services */}
-                    <div className="text-block">
-                        <h3>Our Aerobics Programs</h3>
-                        <p>We offer a variety of aerobics classes tailored to different fitness levels and goals. Each session is crafted by certified instructors who blend traditional techniques with modern fitness science.</p>
-                    </div>
-
-                    <div className="services-grid">
-                        <div className="service-card">
-                            <h3>Cardio Blast</h3>
-                            <p>An intense 45-minute high-intensity interval session designed for maximum caloric burn. Perfect for those looking to shed weight quickly while building endurance. Expect to burn 400-600 calories per session.</p>
-                        </div>
-                        <div className="service-card">
-                            <h3>Step & Tone</h3>
-                            <p>Classic step aerobics reimagined with modern choreography. This class combines cardiovascular exercise with lower body toning, using adjustable step platforms to customize intensity levels.</p>
-                        </div>
-                        <div className="service-card">
-                            <h3>Endurance Builder</h3>
-                            <p>Long-form 60-minute sessions focused on building stamina and mental resilience. Ideal for marathon preparation or anyone seeking to improve their overall cardiovascular capacity.</p>
-                        </div>
-                    </div>
-
-                    {/* Benefits Section */}
-                    <div className="text-block">
-                        <h3>Benefits of Regular Aerobic Exercise</h3>
-                        <p>Scientific research consistently shows that regular aerobic exercise provides numerous health benefits that extend far beyond weight management.</p>
-                    </div>
-
-                    <div className="benefits-grid">
-                        <div className="benefit-card">
-                            <span className="icon">❤️</span>
-                            <h4>Heart Health</h4>
-                            <p>Strengthens the heart muscle, improves blood circulation, and reduces risk of cardiovascular disease by up to 50%.</p>
-                        </div>
-                        <div className="benefit-card">
-                            <span className="icon">🫁</span>
-                            <h4>Lung Capacity</h4>
-                            <p>Increases oxygen intake efficiency and expands lung capacity, making everyday activities easier.</p>
-                        </div>
-                        <div className="benefit-card">
-                            <span className="icon">⚡</span>
-                            <h4>Energy Boost</h4>
-                            <p>Regular practice boosts metabolic rate and increases sustained energy levels throughout the day.</p>
-                        </div>
-                        <div className="benefit-card">
-                            <span className="icon">😊</span>
-                            <h4>Mood Enhancement</h4>
-                            <p>Releases endorphins and serotonin, acting as a natural antidepressant and stress reliever.</p>
-                        </div>
-                        <div className="benefit-card">
-                            <span className="icon">💪</span>
-                            <h4>Muscle Tone</h4>
-                            <p>Tones and defines muscles while improving overall body composition and posture.</p>
-                        </div>
-                        <div className="benefit-card">
-                            <span className="icon">🧠</span>
-                            <h4>Cognitive Function</h4>
-                            <p>Improves memory, focus, and mental clarity by increasing blood flow to the brain.</p>
-                        </div>
-                    </div>
-
-                    {/* Additional Info */}
-                    <div className="info-box">
-                        <h4>What to Expect in Your First Class</h4>
-                        <ul>
-                            <li>Warm welcome from our certified instructors</li>
-                            <li>5-minute warm-up to prepare your body</li>
-                            <li>30-40 minutes of choreographed routines</li>
-                            <li>Cool-down and stretching session</li>
-                            <li>Modifications available for all fitness levels</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
 
             {/* YOGA SECTION - Clean layout with cards and text */}
             <section id="yoga" className={`content-section ${activeSection === 'yoga' ? 'active' : ''}`}>
@@ -293,7 +236,7 @@ export default function SectionsManager() {
                     <div className="section-intro">
                         <h2>Yoga</h2>
                         <p className="section-tagline">Align breath and body through mindful movement and ancient sequences passed down through generations.</p>
-                        
+
                         <div className="meaning">
                             <strong>What is Yoga?</strong> Yoga is a 5,000-year-old practice originating from ancient India, combining physical postures (asanas), breath control (pranayama), and meditation (dhyana) to create union between mind, body, and spirit. The word "Yoga" itself comes from the Sanskrit root "yuj," meaning to join or unite. At our studio, we honor these ancient traditions while making them accessible to modern practitioners of all levels.
                         </div>
@@ -399,7 +342,7 @@ export default function SectionsManager() {
                     <div className="section-intro">
                         <h2>Zumba</h2>
                         <p className="section-tagline">Dance functionality meets fitness in this Latin-inspired workout that makes exercise feel like a celebration.</p>
-                        
+
                         <div className="meaning">
                             <strong>What is Zumba?</strong> Zumba is a dance-fitness program created in the 1990s by Colombian dancer and choreographer Alberto "Beto" Pérez. It combines Latin and international music with dance moves, creating a dynamic, exciting, and effective fitness system. The word "Zumba" is a Colombian slang term meaning to move fast and have fun. Our Zumba classes transform traditional workouts into an exhilarating dance party where you'll burn calories without even realizing you're exercising.
                         </div>
@@ -490,7 +433,7 @@ export default function SectionsManager() {
                     <div className="section-intro">
                         <h2>Meditation</h2>
                         <p className="section-tagline">Find stillness and clarity in the chaos through ancient mindfulness practices and sonic topography.</p>
-                        
+
                         <div className="meaning">
                             <strong>What is Meditation?</strong> Meditation is a practice of training the mind to achieve a state of focused awareness, mental clarity, and emotional calm. Rooted in traditions thousands of years old, meditation has evolved into a scientifically-backed practice for mental wellness. At our studio, we combine traditional techniques with modern neuroscience insights, including the therapeutic power of specific sound frequencies (432Hz and 528Hz) to create transformative experiences.
                         </div>
@@ -599,7 +542,7 @@ export default function SectionsManager() {
                     <div className="section-intro">
                         <h2>Sessions</h2>
                         <p className="section-tagline">Join our live frequencies and become part of a transformative wellness community.</p>
-                        
+
                         <div className="meaning">
                             <strong>Book Your Journey</strong> Whether you're looking for high-energy workouts, peaceful meditation, or transformative yoga, our sessions are designed to meet you where you are. Each class is led by certified professionals in intimate group settings that foster connection and growth. Reserve your spot below and take the first step toward a healthier, more balanced life.
                         </div>
@@ -608,47 +551,45 @@ export default function SectionsManager() {
                     <div className="two-column" style={{ alignItems: 'start' }}>
                         {/* Booking Form */}
                         <div style={{ background: 'rgba(255,255,255,0.05)', padding: '40px', borderRadius: '20px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                            <form className="session-form" onSubmit={(e) => e.preventDefault()}>
+                            <form className="session-form" onSubmit={handleBooking}>
                                 <h3 style={{ fontSize: '1.5rem', borderBottom: '1px solid #444', paddingBottom: '16px', marginBottom: '24px' }}>Book a Spot</h3>
                                 <div className="form-group">
                                     <label>Name</label>
-                                    <input type="text" placeholder="Your Name" />
+                                    <input type="text" name="name" value={formData.name} onChange={handleInput} placeholder="Your Name" required />
                                 </div>
                                 <div className="form-group">
                                     <label>Email</label>
-                                    <input type="email" placeholder="email@address.com" />
+                                    <input type="email" name="email" value={formData.email} onChange={handleInput} placeholder="email@address.com" required />
                                 </div>
                                 <div className="form-group">
                                     <label>Phone</label>
-                                    <input type="tel" placeholder="+1 (555) 123-4567" />
+                                    <input type="tel" name="phone" value={formData.phone} onChange={handleInput} placeholder="+1 (555) 123-4567" required />
                                 </div>
                                 <div className="form-group">
                                     <label>Interest</label>
-                                    <select>
-                                        <option>Select a Program</option>
-                                        <option>Aerobics - Cardio Blast</option>
-                                        <option>Aerobics - Step & Tone</option>
-                                        <option>Yoga - Surya Namaskar</option>
-                                        <option>Yoga - Hatha</option>
-                                        <option>Yoga - Vinyasa Flow</option>
-                                        <option>Zumba - Latin Fusion</option>
-                                        <option>Zumba - Strong Nation</option>
-                                        <option>Meditation - Mindfulness</option>
-                                        <option>Meditation - Sound Bath</option>
-                                        <option>Bhanga Special Session</option>
+                                    <select name="interest" value={formData.interest} onChange={handleInput}>
+                                        <option value="">Select a Program</option>
+                                        <option value="Yoga - Surya Namaskar">Yoga - Surya Namaskar</option>
+                                        <option value="Yoga - Hatha">Yoga - Hatha</option>
+                                        <option value="Yoga - Vinyasa Flow">Yoga - Vinyasa Flow</option>
+                                        <option value="Zumba - Latin Fusion">Zumba - Latin Fusion</option>
+                                        <option value="Zumba - Strong Nation">Zumba - Strong Nation</option>
+                                        <option value="Meditation - Mindfulness">Meditation - Mindfulness</option>
+                                        <option value="Meditation - Sound Bath">Meditation - Sound Bath</option>
+                                        <option value="Bhanga Special Session">Bhanga Special Session</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
                                     <label>Experience Level</label>
-                                    <select>
-                                        <option>Beginner</option>
-                                        <option>Intermediate</option>
-                                        <option>Advanced</option>
+                                    <select name="experience" value={formData.experience} onChange={handleInput}>
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
                                     <label>Message (Optional)</label>
-                                    <input type="text" placeholder="Any special requirements or questions?" />
+                                    <input type="text" name="message" value={formData.message} onChange={handleInput} placeholder="Any special requirements or questions?" />
                                 </div>
                                 <button type="submit" className="submit-btn">Reserve Spot</button>
                             </form>
@@ -665,11 +606,7 @@ export default function SectionsManager() {
                                 <p style={{ color: '#ccc', marginBottom: '20px', fontSize: '1.1rem' }}>
                                     A unique monthly immersion combining intense physical Bhanga movement with high-frequency sound landscapes. This signature session pushes boundaries and creates breakthrough experiences.
                                 </p>
-                                <div style={{ fontFamily: 'monospace', fontSize: '0.9rem', color: '#888' }}>
-                                    NEXT: Feb 15, 2026<br />
-                                    TIME: 20:00 - 22:00<br />
-                                    SPOTS: Limited to 20 participants
-                                </div>
+
                             </div>
 
                             {/* Session Info */}
@@ -689,7 +626,7 @@ export default function SectionsManager() {
                     {/* Contact Info */}
                     <div className="text-block session-contact" style={{ marginTop: '3rem', textAlign: 'center' }}>
                         <p style={{ maxWidth: '100%', margin: '0 auto', color: 'var(--text-secondary)' }}>
-                            Questions? Contact us at <strong style={{ color: 'var(--text-primary)' }}>mudramind@gmail.com</strong> or call <strong style={{ color: 'var(--text-primary)' }}>+91 98765 43210</strong>
+                            Questions? Contact us at <strong style={{ color: 'var(--text-primary)' }}>mudramind@gmail.com</strong> or call <strong style={{ color: 'var(--text-primary)' }}>+91 9718441160</strong>
                         </p>
                     </div>
                 </div>

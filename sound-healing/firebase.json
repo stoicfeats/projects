@@ -12,13 +12,6 @@
         "destination": "/index.html"
       }
     ],
-    "redirects": [
-      {
-        "source": "/:path*",
-        "destination": "https://mudramind.com/:path*",
-        "type": 301
-      }
-    ],
     "cleanUrls": true,
     "headers": [
       {

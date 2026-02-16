@@ -22,7 +22,6 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const navItems = [
-        { name: 'Aerobics', id: 'aerobics' },
         { name: 'Yoga', id: 'yoga' },
         { name: 'Zumba', id: 'zumba' },
         { name: 'Meditation', id: 'meditation' },
@@ -41,7 +40,7 @@ export default function Navbar() {
             >
                 Mudra Minds
             </div>
-            
+
             {/* Center Navigation */}
             <nav className="nav-center">
                 <ul>
@@ -64,19 +63,19 @@ export default function Navbar() {
 
             {/* Right Actions */}
             <div className="nav-actions">
-                <span 
+                <span
                     className={`nav-action ${activeSection === 'session' ? 'active' : ''}`}
                     onClick={() => handleNavClick('session')}
                 >
                     Sessions
                 </span>
-                <span 
+                <span
                     className="nav-action"
                     onClick={() => handleNavClick('session')}
                 >
                     Contact Us
                 </span>
-                <button 
+                <button
                     className="theme-toggle"
                     onClick={toggleTheme}
                     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
@@ -86,7 +85,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
                 className="mobile-menu-btn"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
@@ -130,7 +129,7 @@ export default function Navbar() {
                     Contact Us
                 </a>
                 <div className="mobile-menu-divider"></div>
-                <button 
+                <button
                     className="theme-toggle"
                     onClick={toggleTheme}
                     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}

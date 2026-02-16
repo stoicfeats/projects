@@ -20,6 +20,7 @@ export default function CustomCursor() {
     return (
         <motion.div
             id="cursor"
+            className="hidden md:block"
             style={{
                 x: mouseX,
                 y: mouseY,

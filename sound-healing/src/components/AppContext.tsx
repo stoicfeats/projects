@@ -82,7 +82,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: React.ReactNode }) {
     const [activeSection, setActiveSection] = useState('hero');
     const [activeMode, setActiveMode] = useState(MODE_CONFIGS.hero);
-    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+    const [theme, setTheme] = useState<'dark' | 'light'>('light');
 
     useEffect(() => {
         // Map section IDs to modes
