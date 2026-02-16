@@ -115,12 +115,12 @@ Message: ${formData.message}`;
                                     What is Sound Healing?
                                 </h3>
                                 <p style={{ fontSize: '1rem', color: '#888', lineHeight: '1.8', marginBottom: '16px' }}>
-                                    <strong style={{ color: '#bbb' }}>Nāda Yoga</strong> (नाद योग) is the ancient yoga of sound.
+                                    <strong style={{ color: 'var(--text-primary)' }}>Nāda Yoga</strong> (नाद योग) is the ancient yoga of sound.
                                     "Nāda" means sound or flow, and this practice uses vibrations to harmonize body, mind, and spirit.
                                 </p>
                                 <p style={{ fontSize: '1rem', color: '#888', lineHeight: '1.8' }}>
-                                    Through instruments like <strong style={{ color: '#bbb' }}>Singing Bowls</strong>,
-                                    <strong style={{ color: '#bbb' }}> Gongs</strong>, and <strong style={{ color: '#bbb' }}>Tuning Forks</strong>
+                                    Through instruments like <strong style={{ color: 'var(--text-primary)' }}>Singing Bowls</strong>,
+                                    <strong style={{ color: 'var(--text-primary)' }}> Gongs</strong>, and <strong style={{ color: 'var(--text-primary)' }}>Tuning Forks</strong>
                                     tuned to healing frequencies (432Hz, 528Hz), we create immersive sound experiences that promote deep relaxation and healing.
                                 </p>
                             </div>
@@ -603,7 +603,7 @@ Message: ${formData.message}`;
                                     <h3 style={{ fontSize: '2rem', border: 'none', margin: 0, padding: 0 }}>Bhanga<br />Session</h3>
                                     <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', background: '#fff', color: '#000', padding: '4px 12px', borderRadius: '4px' }}>MONTHLY</span>
                                 </div>
-                                <p style={{ color: '#ccc', marginBottom: '20px', fontSize: '1.1rem' }}>
+                                <p style={{ color: 'var(--text-secondary)', marginBottom: '20px', fontSize: '1.1rem' }}>
                                     A unique monthly immersion combining intense physical Bhanga movement with high-frequency sound landscapes. This signature session pushes boundaries and creates breakthrough experiences.
                                 </p>
 
