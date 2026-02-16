@@ -600,11 +600,11 @@ Message: ${formData.message}`;
                             {/* SPECIAL BHANGA SESSION CARD */}
                             <div className="service-card" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,100,100,0.1) 100%)', border: '1px solid rgba(255,255,255,0.2)' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '20px' }}>
-                                    <h3 style={{ fontSize: '2rem', border: 'none', margin: 0, padding: 0 }}>Bhanga<br />Session</h3>
-                                    <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', background: '#fff', color: '#000', padding: '4px 12px', borderRadius: '4px' }}>MONTHLY</span>
+                                    <h3 style={{ fontSize: '2rem', border: 'none', margin: 0, padding: 0 }}>Bhangra<br />Session</h3>
+                                    <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', background: '#fff', color: '#000', padding: '4px 12px', borderRadius: '4px' }}>ONCE IN A MONTH</span>
                                 </div>
                                 <p style={{ color: 'var(--text-secondary)', marginBottom: '20px', fontSize: '1.1rem' }}>
-                                    A unique monthly immersion combining intense physical Bhanga movement with high-frequency sound landscapes. This signature session pushes boundaries and creates breakthrough experiences.
+                                    A unique monthly immersion combining intense physical Bhangra movement with high-frequency sound landscapes. This signature session pushes boundaries and creates breakthrough experiences.
                                 </p>
 
                             </div>
