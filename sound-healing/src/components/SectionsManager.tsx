@@ -83,7 +83,7 @@ Message: ${formData.message}`;
                         {/* Left Side - Sound Healing Info */}
                         <div className="hero-info">
                             <h2 style={{ fontSize: '2.5rem', fontFamily: 'var(--font-serif)', marginBottom: '24px', background: 'linear-gradient(to right, #fff, #888)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                Welcome to Mudra Minds
+                                Welcome to Mudra Mind
                             </h2>
                             <p style={{ fontSize: '1.1rem', color: '#999', lineHeight: '1.8', marginBottom: '40px' }}>
                                 Sound is the Divine. Ancient wisdom teaches that the universe was created through sound vibration.

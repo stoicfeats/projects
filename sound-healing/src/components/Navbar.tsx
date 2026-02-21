@@ -38,7 +38,7 @@ export default function Navbar() {
                 className="logo"
                 onClick={() => handleNavClick('hero')}
             >
-                Mudra Minds
+                Mudra Mind
             </div>
 
             {/* Center Navigation */}

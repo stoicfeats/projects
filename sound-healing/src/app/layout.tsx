@@ -18,7 +18,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-    title: "Mudra Minds | Sound Healing ",
+    title: "Mudra Mind | Sound Healing ",
     description: "Experience deep rest through sonic topography and vibrational sound healing at Mudra Minds.",
 };
 
